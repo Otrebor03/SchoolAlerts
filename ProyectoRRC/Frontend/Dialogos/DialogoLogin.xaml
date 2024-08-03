@@ -1,0 +1,56 @@
+﻿<mah:MetroWindow x:Class="ProyectoRRC.Frontend.Dialogos.DialogoLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ProyectoRRC.Frontend.Dialogos"
+        mc:Ignorable="d"
+        Title="SchoolAlerts" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <!--Color barra titulo-->
+    <mah:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="#222c2a"/>
+    </mah:MetroWindow.WindowTitleBrush>
+
+    <!-- Icono en la barra de título -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="../../Recursos/Iconos/gorro.png"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!--Panel central-->
+    <Grid Background="#262e34">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Titulo-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Image Source="../../Recursos/Iconos/gorro.png" Margin="0 0 10 0" Height="80"/>
+            <TextBlock Text="Iniciar Sesión" Foreground="#F9E8C9" FontWeight="Bold" VerticalAlignment="Center"  FontSize="30" />
+        </StackPanel>
+
+        <!--Campo para que el usuario introduzca su usuario-->
+        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 20">
+            <TextBlock Text="Usuario:" Foreground="#F9E8C9" Margin="0 0 0 10" FontSize="20"/>
+            <TextBox x:Name="txtUsuario" Style="{StaticResource MahApps.Styles.TextBox}" Background="#313e4f" Width="230" FontSize="20" Foreground="#F9E8C9"/>
+        </StackPanel>
+
+        <!--Campo para que el usuario introduzca la contraseña-->
+        <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Margin="0 0 0 20">
+            <TextBlock Text="Contraseña:" Foreground="#F9E8C9" Margin="0 0 0 10" FontSize="20"/>
+            <PasswordBox x:Name="txtPassword" Width="230" Background="#313e4f"  Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}" FontSize="20" />
+        </StackPanel>
+
+        <!--Boton de inicio de sesion-->
+        <Button x:Name="btnEntrar" Click="btnEntrar_Click" Content="Acceder" Grid.Row="3" Foreground="#F9E8C9" Background="#313e4f" Height="55" Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0" FontSize="20" IsDefault="True"/>
+        
+
+    </Grid>
+</mah:MetroWindow>

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCPermisos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:ent="clr-namespace:ProyectoRRC.Backend.Modelo"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <!--Parte lateral izquierda donde mostramos los permisos que hay-->
+        <Grid DockPanel.Dock="Left" Width="300">
+            <TreeView x:Name="treePermisos" SelectedItemChanged="treePermisos_SelectedItemChanged">
+                <TreeViewItem Header="Permisos" ItemsSource="{Binding listaPermisos}" Foreground="#F9E8C9" x:Name="treeViewItem">
+                    <TreeViewItem.Resources>
+                        <DataTemplate DataType="{x:Type ent:Permiso}">
+                            <StackPanel Orientation="Horizontal">
+                                <mat:PackIcon Kind="Paper" />
+                                <TextBlock Text="{Binding IdPermiso}" Foreground="#F9E8C9"/>
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding Descripcion}" Foreground="#F9E8C9"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TreeViewItem.Resources>
+                </TreeViewItem>
+            </TreeView>
+        </Grid>
+
+        
+
+        <!--Parte superior con el id del permiso y botones para añadir y borrar-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--ID del permiso-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="15 0 0 0">
+                <TextBlock Text="ID Permiso: " Foreground="#F9E8C9"/>
+                <TextBlock x:Name="txtNombrePermiso" Foreground="#F9E8C9"/>
+            </StackPanel>
+
+            <!--Elegir rol que queremos añadir al permiso, solo visible cuando hay un permiso seleccionado-->
+            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Visibility="Hidden" x:Name="spAnyadirRol">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Elegir Rol:" Foreground="#F9E8C9"  VerticalAlignment="Center" Margin="0 0 10 0" x:Name="txtElegirPermiso"/>
+                    <ComboBox Width="115"  ItemsSource="{Binding listaRoles}" DisplayMemberPath="" SelectedItem="{Binding rolSeleccionado}" x:Name="cmbSeleccionarPermiso"/>
+                </StackPanel>
+                <Button x:Name="btnAnyadirRol" Click="btnAnyadirRol_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir Rol" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 15 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+            </StackPanel>
+
+            
+            <StackPanel Orientation="Vertical" Grid.Column="2">
+                <!--Boton de crear un permiso-->
+                <Button x:Name="btnAnyadirPermiso" Click="btnAnyadirPermiso_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir Permiso" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                <!--Boton de borrar permiso-->
+                <Button x:Name="btnBorrarPermiso" Click="btnBorrarPermiso_Click" Background="#313e4f" BorderBrush="Transparent" Content="Borrar Permiso" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                
+            </StackPanel>
+
+
+        </Grid>
+
+        <!--Parte inferior donde mostramos la informacion del rol que contiene el permiso seleccionado-->
+        <Grid>
+            <DataGrid x:Name="dgPermiso" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Rol" Binding="{Binding IdRol}"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding NombreRol}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

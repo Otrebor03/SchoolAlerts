@@ -1,0 +1,455 @@
+﻿<mah:MetroWindow x:Class="ProyectoRRC.Frontend.Dialogos.Admin.DialogoInicio"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ProyectoRRC.Frontend.Dialogos.Admin"
+        mc:Ignorable="d"
+        x:Name="inicio"
+        Title="SchoolAlerts" Height="600" Width="990" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <!--Color barra titulo-->
+    <mah:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="#222c2a"/>
+    </mah:MetroWindow.WindowTitleBrush>
+
+    <!-- Icono en la barra de título -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="../../Recursos/Iconos/gorro.png"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!--Boton en la barra de titulo para cerrar la sesion-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="btnCerrarSesion" Click="btnCerrarSesion_Click">
+                <mat:PackIcon Kind="ExitToApp" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <!--Parte central-->
+    <DockPanel LastChildFill="True" Background="#262e34">
+
+        <!--Hamburguer menu (Solo visible cuando se este dentro de una de las funciones)-->
+        <Grid x:Name="menu" Background="Transparent" DockPanel.Dock="Left" Width="75" Visibility="Hidden">
+
+            <Border Background="#1C2226" CornerRadius="0 0 0 10"/>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Background="Transparent" Margin=" 0 10 0 0">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 10 0" Width="75" Background="Transparent">
+                    <ToggleButton x:Name="btnMostrar" Width="30" Height="30" BorderBrush="Transparent" Cursor="Hand" Margin="30 0 0 0">
+                        <Image Source="../../Recursos/Iconos/menu.png"  />
+
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="HidePanel">
+                                        <DoubleAnimation Storyboard.TargetName="menu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="75" Duration="0:0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="ShowPanel">
+                                        <DoubleAnimation Storyboard.TargetName="menu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="75" To="200" Duration="0:0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+                </Grid>
+
+                <ListView Background="Transparent" BorderBrush="Transparent" Margin="0 30 0 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem x:Name="LVIinicio" >
+                        <Button x:Name="btnInicio" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnInicio_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/casa.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Inicio" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIincidencias" >
+                        <Button x:Name="btnIncidenciasMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnIncidencias_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/advertencia.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Incidencias" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIusuarios">
+                        <Button x:Name="btnUsuariosMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnUsuarios_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/usuarios.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Usuarios" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIgraficos">
+                        <Button x:Name="btnGraficosMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnGraficosMenu_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/estadisticas.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Gráficos" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIestudiantes">
+                        <Button x:Name="btnEstudiantesMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnEstudiantes_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/alumnos.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Estudiantes" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIinformes">
+                        <Button x:Name="btnInformesMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnInformesMenu_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/notas.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Informes" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVImotivos">
+                        <Button x:Name="btnMotivosMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnMotivos_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/reporte.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Motivos" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="LVIconfiguracion">
+                        <Button x:Name="btnConfiguracionMenu" Width="200" Height="50" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnConfiguracionMenu_Click">
+                            <Grid Width="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="../../Recursos/Iconos/ajuste.png" Width="50" HorizontalAlignment="Left" />
+
+                                <TextBlock Text="Configuración" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 20 0"/>
+                            </Grid>
+
+
+                        </Button>
+
+                    </ListViewItem>
+
+
+                </ListView>
+
+
+            </StackPanel>
+
+
+        </Grid>
+
+        <!--Indicador de en que parte de la aplicacion se encuentra el usuario y el nombre y apellido del usuario-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                <Image x:Name="img" Source="../../Recursos/Iconos/casa.png"  Height="40" Margin="15 15 15 10" />
+                <TextBlock x:Name="txtUbicacion" Text="Inicio" Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <Button Background="Transparent" BorderBrush="Transparent" Height="40" x:Name="btnUsuario" Click="btnUsuario_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="156,12,0,13" Width="300">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <Image Source="../../Recursos/Iconos/usuarioCirculo.png"  Height="30" Margin="0 0 15 0" />
+                    <TextBlock x:Name="txtNombreUsuario" Foreground="#F9E8C9" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Width="220">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding persona.Nombre}"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding persona.Apellido1}"/>
+                    <TextBlock Text=" ("/>
+                    <TextBlock x:Name="txtCategoria" Text="{Binding persona.IdRolNavigation.NombreRol}"/>
+                    <TextBlock Text=")"/>
+                </StackPanel>
+        </TextBlock>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+        <!--Zona de botones dependiendo del rol apareceran unos u otros-->
+        <Grid x:Name="gridCentral" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Boton para acceder a las incidencias-->
+            <Button x:Name="btnIncidencias" Click="btnIncidencias_Click" Background="#313e4f" BorderBrush="Transparent" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/advertencia.png" Height="50"/>
+                    <TextBlock Text="Incidencias" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los usuarios-->
+            <Button x:Name="btnUsuarios" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUsuarios_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Column="1" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/usuarios.png" Height="50"/>
+                    <TextBlock Text="Usuarios" x:Name="txtUsuarios" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los informes anuales-->
+            <Button x:Name="btnResumenAnual" VerticalAlignment="Center" Visibility="Hidden" HorizontalAlignment="Center" Click="btnResumenAnual_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Column="1" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/calendario.png" Height="50"/>
+                    <TextBlock Text="Resumen Anual" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a importar datos (solo accesible una vez pulsado el boton de configuracion)-->
+            <Button x:Name="btnImport" Click="btnImport_Click" Background="#313e4f" Visibility="Hidden" BorderBrush="Transparent" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/importar.png" Height="50"/>
+                    <TextBlock Text="Importacion" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+
+            <!--Boton para acceder a la configuracion-->
+            <Button x:Name="btnConfiguracion" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnConfiguracion_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Column="2" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/ajuste.png" Height="50"/>
+                    <TextBlock Text="Configuración" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a exportar datos (solo accesible una vez pulsado el boton de configuracion)-->
+            <Button x:Name="btnExportar" VerticalAlignment="Center" Visibility="Hidden" HorizontalAlignment="Center" Click="btnExportar_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Column="2" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/exportar.png" Height="50"/>
+                    <TextBlock Text="Exportar" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los gráficos de los grupos-->
+            <Button x:Name="btnGrupos" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnGrupos_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Row="1"  Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/grupo.png" Height="60"/>
+                    <TextBlock Text="Grupos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los usuarios-->
+            <Button x:Name="btnMotivos" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnMotivos_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Row="1" Grid.Column="1" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/reporte.png" Height="50"/>
+                    <TextBlock Text="Motivos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los gráficos de los estudiantes-->
+            <Button x:Name="btnEstudiantesGraficos" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnEstudiantesGraficos_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Row="1" Grid.Column="2"  Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/alumnos.png" Height="60"/>
+                    <TextBlock Text="Alumnos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a al inicio-->
+            <Button x:Name="botonInicio" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnInicio_Click" Background="#313e4f" BorderBrush="Transparent"  Grid.Row="1" Grid.Column="1" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/casa.png" Height="50"/>
+                    <TextBlock Text="Inicio" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los graficos-->
+            <Button x:Name="btnGraficos" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnGraficos_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2"  Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/estadisticas.png" Height="50"/>
+                    <TextBlock Text="Gráficos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los roles (solo accesible una vez pulsado el boton de configuracion)-->
+            <Button x:Name="btnRoles" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnRoles_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2" Visibility="Hidden" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/roles.png" Height="50"/>
+                    <TextBlock Text="Roles" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los estudiantes-->
+            <Button x:Name="btnEstudiantes" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnEstudiantes_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2" Grid.Column="1" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/alumnos.png" Height="50"/>
+                    <TextBlock Text="Estudiantes" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los informes-->
+            <Button x:Name="btnInformes" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnInformes_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2" Grid.Column="2" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/notas.png" Height="50"/>
+                    <TextBlock Text="Informes" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los grupos para realizar un informe-->
+            <Button x:Name="btnGruposInforme" VerticalAlignment="Center" Visibility="Hidden" HorizontalAlignment="Center" Click="btnGruposInforme_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2" Grid.Column="2" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/grupo.png" Height="50"/>
+                    <TextBlock Text="Grupos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <!--Boton para acceder a los permisos (solo accesible una vez pulsado el boton de configuracion)-->
+            <Button x:Name="btnPermisos" VerticalAlignment="Center" Visibility="Hidden" HorizontalAlignment="Center" Click="btnPermisos_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="2" Grid.Column="2" Height="100" Width="190" mat:ButtonAssist.CornerRadius="15" >
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Recursos/Iconos/permiso.png" Height="50"/>
+                    <TextBlock Text="Permisos" Foreground="#F9E8C9" FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+
+
+        </Grid>
+
+
+
+
+    </DockPanel>
+
+
+
+
+
+
+</mah:MetroWindow>

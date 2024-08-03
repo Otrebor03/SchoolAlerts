@@ -1,0 +1,63 @@
+﻿<mah:MetroWindow x:Class="ProyectoRRC.Frontend.Dialogos.DialogoModificarContrasenya"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoRRC.Frontend.Dialogos"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="SchoolAlerts" Height="270" Width="400"  WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" >
+    
+    <!--Color barra titulo-->
+    <mah:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="#222c2a"/>
+    </mah:MetroWindow.WindowTitleBrush>
+
+    <!-- Icono en la barra de título -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="../../../Recursos/Iconos/gorro.png"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!--Parte central-->
+    <Grid Background="#262e34">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Campo donde el usuario pondra la contraseña anterior-->
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <TextBlock Text="Contraseña Anterior: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" />
+            <PasswordBox x:Name="txtPasswordAnterior" Width="330" Background="#313e4f" Foreground="#F9E8C9" Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}" HorizontalAlignment="Left" FontSize="20"/>
+        </StackPanel>
+
+        <!--Campo donde el usuario pondra la nueva contraseña-->
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <TextBlock Text="Contraseña Nueva: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" />
+            <PasswordBox x:Name="txtPasswordNueva" Width="330" Background="#313e4f" Foreground="#F9E8C9" Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}" HorizontalAlignment="Left" FontSize="20"/>
+        </StackPanel>
+
+        <!--Botones de volver atras y guardar-->
+        <StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 15 0 0">
+            
+            <!--Boton de volver atras-->
+            <Button x:Name="btnAtras" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAtras_Click" Background="#313e4f" BorderBrush="Transparent" Height="51" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Atrás" Foreground="#F9E8C9" Margin="0 0 15 0">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+            </Button>
+
+            <!--Boton de guardar-->
+            <Button x:Name="btnGuardar" HorizontalAlignment="Center" Click="btnGuardar_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="5"  Height="50" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Guardar" Foreground="#F9E8C9" VerticalAlignment="Top">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+    </Grid>
+    
+</mah:MetroWindow>

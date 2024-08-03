@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCAlumnos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <DockPanel LastChildFill="True">
+        <!--Parte superior con los filtros y botones-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Separator Grid.ColumnSpan="6" Background="#2077bb"/>
+
+
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="15">
+                <!--Boton para añadir un alumno-->
+                <Button x:Name="btnAnyadirAlumno" Click="btnAnyadirAlumno_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir Alumno" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                <!--Boton para borrar varios alumnos-->
+                <Button x:Name="btnBorrarAlumno" Click="btnBorrarAlumno_Click" Background="#313e4f" BorderBrush="Transparent" Content="Borrar Alumno" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+            
+            <!--Campo de texto para filtrar por nombre de alumno-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Nombre:" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox x:Name="txtNombre" Foreground="#F9E8C9" Text="{Binding nombreAlumno, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--Combobox para filtrar por grupo-->
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="10 0 10 0" Grid.Row="1" Grid.Column="2">
+                <TextBlock Text="Grupo" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <ComboBox  x:Name="cmbGrupo" ItemsSource="{Binding listaGrupos, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NombreGrupo" SelectedItem="{Binding grupoSeleccionado}"/>
+            </StackPanel>
+
+            <!--Campo de texto para filtrar por el NIA del alumno-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="0 0 10 0">
+                <TextBlock Text="NIA:" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox x:Name="txtNia" Foreground="#F9E8C9" Text="{Binding niaAlumno, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--Campo de texto para filtrar por el telefono del alumno-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">
+                <TextBlock Text="Telefono:" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox x:Name="txtTelefono" Foreground="#F9E8C9" Text="{Binding telefonoAlumno, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="5" Grid.Row="1">
+                <!--Boton paar aplicar los filtros-->
+                <Button x:Name="btnBuscar" Click="btnBuscar_Click" Background="#313e4f" BorderBrush="Transparent" Content="Buscar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                <!--Boton para borrar los filtros-->
+                <Button x:Name="btnBorrar" Click="btnBorrar_Click" Background="#313e4f" BorderBrush="Transparent" Content="Borrar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+        
+        <!--Parte de debajo-->
+        <Grid>
+            <DataGrid x:Name="dgAlumnos" AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False" ItemsSource="{Binding listaAlumnos}">
+                <DataGrid.Columns>
+                    
+                    <!--Checkbox para elegir varios alumnos-->
+                    <DataGridTemplateColumn Header="Seleccionar">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" HorizontalAlignment="Left"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--Nombre del alumno-->
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" IsReadOnly="True"/>
+
+                    <!--Apellidos del alumno-->
+                    <DataGridTemplateColumn Header="Apellidos" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Apellido1}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text="{Binding Apellido2}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--NIA del alumno-->
+                    <DataGridTextColumn Header="NIA" Binding="{Binding Nia}" IsReadOnly="True"/>
+
+                    <!--Grupo al que pertenece el alumno-->
+                    <DataGridTextColumn Header="Grupo" Binding="{Binding IdGrupoNavigation.NombreGrupo}" IsReadOnly="True"/>
+
+                    <!--Telefono del alumno-->
+                    <DataGridTextColumn Header="Telefono" Binding="{Binding Telefono}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu >
+                    <ContextMenu>
+                        <!--Context menu para crear un informe al alumno-->
+                        <MenuItem Header="Crear Informe" Name="itemInforme" Click="itemInforme_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="PaperAdd"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <!--Context menu para amonestar al alumno-->
+                        <MenuItem Header="Amonestar" Name="itemAmonestar" Click="itemAmonestar_Click" >
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Paper"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <!--Context menu para eliminar al alumno-->
+                        <MenuItem Header="Borrar" Name="itemBorrar" Click="itemBorrar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Trash"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

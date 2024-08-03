@@ -1,0 +1,178 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCIncidencias"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="900">
+    
+    <DockPanel LastChildFill="True">
+        
+        <!--Parte superior, donde encontramos los filtros y botones-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Separator Grid.ColumnSpan="7" Background="#2077bb"/>
+
+            <!--Boton para añadir una incidencia-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="15">
+                <Button x:Name="btnAnyadirIncidencia" Click="btnAnyadirIncidencia_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir Incidencia" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10" Width="147">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                <!--Boton para borrar varias incidencias-->
+                <Button x:Name="btnBorrarIncidencia" Click="btnBorrarIncidencia_Click" Background="#313e4f" BorderBrush="Transparent" Content="Borrar Incidencias" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Width="145">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+            <!--Campo de texto para filtrar por NIA-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="NIA:" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding niaAlumno, UpdateSourceTrigger=PropertyChanged}" x:Name="txtNia"/>
+            </StackPanel>
+
+            <!--Campo para filtrar en un periodo de fechas (Inicio)-->
+            <TextBlock Text="Periodo de tiempo del hecho" Foreground="#F9E8C9" Margin="10 20 0 5" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" />
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" >
+                <TextBlock Text="Inicio:" Foreground="#F9E8C9" Margin="25 0 0 5"/>
+                <mah:DateTimePicker x:Name="dtpHecho" Width="180" SelectedDateTime="{Binding FechaInicio}" />
+            </StackPanel>
+
+            <!--Campo para filtrar en un periodo de fechas (Fin)-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" >
+                <TextBlock Text="Fin:" Foreground="#F9E8C9" Margin="25 0 0 5"/>
+                <mah:DateTimePicker x:Name="dtpRegistro" Width="180" SelectedDateTime="{Binding FechaFin}"/>
+            </StackPanel>
+
+            <!--Combobox para filtrar por tipo (Amonestacion/Incidencia)-->
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="10 0 0 0" Grid.Row="1" Grid.Column="4">
+                <TextBlock Text="Tipo " Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <ComboBox  x:Name="cmbTipo" Foreground="#F9E8C9" ItemsSource="{Binding listaTipos}" SelectedItem="{Binding tipoSeleccionado}" DisplayMemberPath="" IsReadOnly="True" />
+                    
+            </StackPanel>
+
+            <!--Combobox para filtrar por motivos-->
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="10 0 0 0" Grid.Row="1" Grid.Column="5">
+                <TextBlock Text="Motivo" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <ComboBox  x:Name="cmbMotivo" Foreground="#F9E8C9" ItemsSource="{Binding listaMotivos}" SelectedItem="{Binding motivoSeleccionado, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Motivo1" IsReadOnly="True" />
+
+            </StackPanel>
+
+            <!--Botones de añadir motivo, buscar y borrar filtros-->
+            <StackPanel Orientation="Vertical" Grid.Column="6" Grid.Row="1" Margin="0 10 10 0">
+
+                <!--Boton de buscar-->
+                <Button x:Name="btnBuscar" Click="btnBuscar_Click" Background="#313e4f" BorderBrush="Transparent" Content="Buscar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+                
+                <!--Boton de borrar filtros-->
+                <Button x:Name="btnBorrar" Click="btnBorrar_Click" Background="#313e4f" BorderBrush="Transparent" Content="Borrar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+        
+        <!--Parte inferior, Mostramos informacion de las incidencias/amonestaciones-->
+        <Grid>
+            <DataGrid x:Name="dgIncidencias" AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False" ItemsSource="{Binding listaIncidencias}">
+                <DataGrid.Columns>
+                    
+                    <!--Checkbox para seleccionar varias-->
+                    <DataGridTemplateColumn Header="Seleccionar">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" HorizontalAlignment="Left"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--Nombre y apellidos del alumno-->
+                    <DataGridTemplateColumn Header="Alumno" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding IdAlumnoNavigation.Nombre}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text="{Binding IdAlumnoNavigation.Apellido1}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--Profesor que ha registrado la amonestacion/incidencia-->
+                    <DataGridTemplateColumn Header="Profesor Registra" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding IdProfesorRegistraNavigation.IdPersonaNavigation.Nombre}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text="{Binding IdProfesorRegistraNavigation.IdPersonaNavigation.Apellido1}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--Sancion que se le ha aplicado a la amonestacion/incidencia-->
+                    <DataGridTextColumn Header="Sanción" Binding="{Binding Sancion}" IsReadOnly="True"/>
+
+                    <!--Descripcion -->
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" IsReadOnly="True"/>
+
+                    <!--Fecha del hecho -->
+                    <DataGridTextColumn Header="Fecha del hecho" Binding="{Binding FechaHoraHecho, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}"  IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <!--Context menu para editar la incidencia/amonestacion-->
+                    <ContextMenu>
+                        <!--Context menu para crear un informe sobre una incidencia-->
+                        <MenuItem Header="Crear Informe" Name="itemInforme" Click="itemInforme_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="PaperAdd"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Editar" Name="itemEditar" Click="itemEditar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Edit"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <!--Context menu para eliminar la amonestacion/incidencia-->
+                        <MenuItem Header="Borrar" Name="itemBorrar" Click="itemBorrar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Trash"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Recursos\Iconos\gorro.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Frontend\Dialogos\DialogoUsuarioEditar.xaml~RF13b44f.TMP" />
+    <None Remove="Frontend\UC\UCIncidencias.xaml~RF1929ac5.TMP" />
+    <None Remove="Recursos\calendario.png" />
+    <None Remove="Recursos\Iconos\advertencia.png" />
+    <None Remove="Recursos\Iconos\ajuste.png" />
+    <None Remove="Recursos\Iconos\alumnos.png" />
+    <None Remove="Recursos\Iconos\casa.png" />
+    <None Remove="Recursos\Iconos\estadisticas.png" />
+    <None Remove="Recursos\Iconos\exportar.png" />
+    <None Remove="Recursos\Iconos\fotoPersona.png" />
+    <None Remove="Recursos\Iconos\gorro.png" />
+    <None Remove="Recursos\Iconos\grupo.png" />
+    <None Remove="Recursos\Iconos\importar.png" />
+    <None Remove="Recursos\Iconos\menu.png" />
+    <None Remove="Recursos\Iconos\notas.png" />
+    <None Remove="Recursos\Iconos\permiso.png" />
+    <None Remove="Recursos\Iconos\reporte.png" />
+    <None Remove="Recursos\Iconos\roles.png" />
+    <None Remove="Recursos\Iconos\usuario.png" />
+    <None Remove="Recursos\Iconos\usuarioCirculo.png" />
+    <None Remove="Recursos\Iconos\usuarios.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Recursos\Iconos\gorro.ico" />
+    <Content Include="Recursos\Iconos\gorroIco.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\calendario.png" />
+    <Resource Include="Recursos\Iconos\advertencia.png" />
+    <Resource Include="Recursos\Iconos\ajuste.png" />
+    <Resource Include="Recursos\Iconos\alumnos.png" />
+    <Resource Include="Recursos\Iconos\casa.png" />
+    <Resource Include="Recursos\Iconos\estadisticas.png" />
+    <Resource Include="Recursos\Iconos\exportar.png" />
+    <Resource Include="Recursos\Iconos\fotoPersona.png" />
+    <Resource Include="Recursos\Iconos\gorro.png" />
+    <Resource Include="Recursos\Iconos\grupo.png" />
+    <Resource Include="Recursos\Iconos\importar.png" />
+    <Resource Include="Recursos\Iconos\menu.png" />
+    <Resource Include="Recursos\Iconos\notas.png" />
+    <Resource Include="Recursos\Iconos\permiso.png" />
+    <Resource Include="Recursos\Iconos\reporte.png" />
+    <Resource Include="Recursos\Iconos\roles.png" />
+    <Resource Include="Recursos\Iconos\usuario.png" />
+    <Resource Include="Recursos\Iconos\usuarioCirculo.png" />
+    <Resource Include="Recursos\Iconos\usuarios.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NLog" Version="5.2.8" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCRol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:ent="clr-namespace:ProyectoRRC.Backend.Modelo"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <!--Parte lateral izquierda donde mostramos los roles-->
+        <Grid DockPanel.Dock="Left" Width="200" >
+            <TreeView x:Name="treeRol" SelectedItemChanged="treeRol_SelectedItemChanged">
+                <TreeViewItem Header="Roles" ItemsSource="{Binding listaRoles}" x:Name="treeViewItem" Foreground="#F9E8C9">
+                    <TreeViewItem.Resources>
+                        <DataTemplate DataType="{x:Type ent:Role}">
+                            <StackPanel Orientation="Horizontal">
+                                <mat:PackIcon Kind="People" />
+                                <TextBlock Text="{Binding NombreRol}" Foreground="#F9E8C9"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TreeViewItem.Resources>
+                </TreeViewItem>
+            </TreeView>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Separator Background="#2077bb"/>
+            
+            <Separator Background="#2077bb"/>
+        </StackPanel>
+
+        <!--Parte superior donde mostramos el nombre del rol seleccionado y tenemos el boton de crear rol-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Texto donde mostramos el nombre del rol seleccionado-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20 0 0 0">
+                <TextBlock Text="Nombre Rol: " Foreground="#F9E8C9"/>
+                <TextBlock x:Name="txtNombreRol" Foreground="#F9E8C9"/>
+            </StackPanel>
+
+            
+            <!--Combobox y boton para añadir permisos al rol (solo visible cuando se seleccione un rol)-->
+            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Elegir Permiso:" Foreground="#F9E8C9" Visibility="Hidden" VerticalAlignment="Center" Margin="0 0 10 0" x:Name="txtElegirPermiso"/>
+                    <ComboBox Width="115" Visibility="Hidden" ItemsSource="{Binding listaPermisos}" DisplayMemberPath="" SelectedItem="{Binding permisoSeleccionado}" x:Name="cmbSeleccionarPermiso"/>
+                </StackPanel>
+                <Button x:Name="btnAnyadirPermiso" Visibility="Hidden" Click="btnEditarRol_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir permiso al rol" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 15 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+            </StackPanel>
+
+            
+            <!--Boton de crear un rol-->
+            <StackPanel Orientation="Vertical" Grid.Column="2">
+                <Button x:Name="btnCrearRol" Click="btnCrearRol_Click" Background="#313e4f" Grid.Column="1" BorderBrush="Transparent" Content="Crear Rol" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 15">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                <!--Boton de borrar un rol-->
+                <Button x:Name="btnBorrarRol" Click="btnBorrarRol_Click" Visibility="Hidden" Background="#313e4f" BorderBrush="Transparent" Content="Borrar Rol" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+
+                
+            </StackPanel>
+            
+
+        </Grid>
+        
+        <!--Parte inferior donde muestro el id del permiso que tiene el rol y sus permisos-->
+        <Grid>
+            <DataGrid x:Name="dgRol" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Permiso" Binding="{Binding IdPermiso}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" IsReadOnly="True"/>
+                    
+                </DataGrid.Columns>
+                
+                <!--Context Menu para eliminar los permisos que tiene un rol-->
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Borrar Permiso" Name="itemBorrar" Click="itemBorrar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Trash"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

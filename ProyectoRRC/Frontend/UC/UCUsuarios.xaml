@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCUsuarios"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <DockPanel LastChildFill="True">
+
+        <!--Panel superior (Filtros y botones para añadir, borrar y buscar)-->
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Separator Grid.ColumnSpan="6" Background="#2077bb"/>
+
+            <!--Boton para añadir un usuario-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="15">
+                <Button x:Name="btnAnyadirUsuario" Click="btnAnyadirUsuario_Click" Background="#313e4f" BorderBrush="Transparent" Content="Añadir Usuario" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+            <!--Campo de texto para filtra por nombre de usuario-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Nombre:" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox x:Name="txtNombre" Foreground="#F9E8C9" Text="{Binding nombrePersona, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--Combobox para filtrar por rol del usuario-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10 0 0 0" x:Name="spRol">
+                <TextBlock Text="Rol" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <ComboBox  x:Name="cmbRol" ItemsSource="{Binding listaRoles}" SelectedItem="{Binding rolSeleccionado}" DisplayMemberPath="" IsReadOnly="True"/>
+            </StackPanel>
+
+            <!--Campo de texto para filtrar por DNI del usuario-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="10 0 0 0">
+                <TextBlock Text="DNI" Foreground="#F9E8C9" Margin="0 0 0 5"/>
+                <TextBox x:Name="txtDni" Foreground="#F9E8C9" Text="{Binding dniPersona, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <!--Boton de buscar (aplicar filtros)-->
+            <Button x:Name="btnBuscar" Click="btnBuscar_Click" Background="#313e4f" Grid.Column="4" Grid.Row="1" BorderBrush="Transparent" Content="Buscar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+            </Button>
+
+            <!--Boton de elimninar filtros-->
+            <Button x:Name="btnBorrar" Click="btnBorrar_Click" Grid.Column="5" Grid.Row="1" Background="#313e4f" BorderBrush="Transparent" Content="Borrar" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Center" Foreground="#F9E8C9" Margin="0 0 0 10">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+            </Button>
+
+        </Grid>
+        
+        <!--Parte inferior, donde mostraremos la informacion de los usuarios-->
+        <Grid>
+            <DataGrid x:Name="dgUsuarios" AutoGenerateColumns="False" ItemsSource="{Binding listaPersonas}" ColumnWidth="*" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    
+                    <!--Nombre del usuario-->
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" IsReadOnly="True"/>
+
+                    <!--Apellidos del usuario-->
+                    <DataGridTemplateColumn Header="Apellidos" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Apellido1}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text="{Binding Apellido2}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--DNI del usuario-->
+                    <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" IsReadOnly="True"/>
+
+                    <!--Rol que tiene asignado el usuario-->
+                    <DataGridTextColumn Header="Rol" Binding="{Binding IdRolNavigation.NombreRol}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+                <!--Context Menu para eliminar un usuario-->
+                <DataGrid.ContextMenu>
+                    
+                    <ContextMenu>
+                        <!--Context menu para crear un informe al profesor o tutor-->
+                        <MenuItem Header="Crear Informe" Name="itemInforme" Click="itemInforme_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="PaperAdd"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Borrar Usuario" Name="itemBorrar" Click="itemBorrar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Trash"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Modificar Contraseña" Name="itemEditar" Click="itemEditar_Click">
+                            <MenuItem.Icon>
+                                <mat:PackIcon Kind="Edit"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</UserControl>

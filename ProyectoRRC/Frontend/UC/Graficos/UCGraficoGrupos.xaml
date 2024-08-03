@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="ProyectoRRC.Frontend.UC.UCGraficoGrupos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ent="clr-namespace:ProyectoRRC.Backend.Modelo"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:ProyectoRRC.Frontend.UC"
+             xmlns:xtended="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Left" Width="250">
+            <TreeView x:Name="treeGrupo" SelectedItemChanged="treeGrupo_SelectedItemChanged">
+                <TreeViewItem Header="Grupos" ItemsSource="{Binding listaGrupos}" x:Name="treeViewItem" Foreground="#F9E8C9">
+                    <TreeViewItem.Resources>
+                        <DataTemplate DataType="{x:Type ent:Grupo}">
+                            <StackPanel Orientation="Horizontal">
+                                <mat:PackIcon Kind="Group" />
+                                <TextBlock Text="{Binding NombreGrupo}" Foreground="#F9E8C9"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TreeViewItem.Resources>
+                </TreeViewItem>
+            </TreeView>
+        </Grid>
+
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                <TextBlock Text="Grupo: " Foreground="#F9E8C9" Visibility="Hidden" x:Name="tbGrupo" Margin="10 0 0 0"/>
+                <TextBlock x:Name="txtNombreGrupo" Foreground="#F9E8C9" Visibility="Hidden"/>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="20 0 0 0" Visibility="Hidden" x:Name="spAnyo">
+                <TextBlock Text="Año: " Foreground="#F9E8C9"   Margin="10 0 0 0"/>
+                <TextBlock x:Name="txtAnyo" Foreground="#F9E8C9" Text="{Binding anyo}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" x:Name="spAnyotxt" Visibility="Hidden">
+
+                <TextBlock Text="Año: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+
+                <xtended:IntegerUpDown x:Name="fechaAnyo" Text="{Binding anyo}" Foreground="#F9E8C9" Width="155" />
+
+                <!--<TextBox Foreground="#F9E8C9" x:Name="tbAnyo"  Style="{StaticResource MahApps.Styles.TextBox}" Background="#313e4f" Width="155" MaxLength="4"/>-->
+            </StackPanel>
+
+            <Button x:Name="btnBuscar" Visibility="Hidden" Grid.Row="1" Grid.Column="1"  Click="btnBuscar_Click" Background="#313e4f" BorderBrush="Transparent" Content="Buscar Fecha" mat:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#F9E8C9" Margin="0 10 0 10">
+                <Button.Effect>
+                    <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+                </Button.Effect>
+            </Button>
+
+        </Grid>
+        <Grid>
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Visibility="Hidden" x:Name="grafico" Margin="0 0 10 0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Meses" Labels="{Binding Labels}"/>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Cantidad" LabelFormatter="{Binding Formatter}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Grid>
+    </DockPanel>
+</UserControl>

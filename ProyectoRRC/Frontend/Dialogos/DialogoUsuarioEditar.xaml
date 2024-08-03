@@ -1,0 +1,95 @@
+﻿<mah:MetroWindow x:Class="ProyectoRRC.Frontend.Dialogos.Admin.DialogoUsuarioEditar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ProyectoRRC.Frontend.Dialogos.Admin"
+        mc:Ignorable="d"
+        Title="SchoolAlerts" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <!--Color barra titulo-->
+    <mah:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="#222c2a"/>
+    </mah:MetroWindow.WindowTitleBrush>
+
+    <!-- Icono en la barra de título -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="../../../Recursos/Iconos/gorro.png"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!--Boton en la barra de titulo para cerrar la sesion-->
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="btnCerrarSesion" Click="btnCerrarSesion_Click">
+                <mat:PackIcon Kind="ExitToApp" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <!--Parte central-->
+    <Grid Background="#262e34">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Imagen del usuario-->
+        <Image Grid.RowSpan="3" x:Name="imgUsuario" Width="190" Margin="0 20 0 0"/>
+
+        <!--Campo para modificar el nombre del usuario-->
+        
+        <TextBlock Text="Nombre: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1"/>
+        <TextBox x:Name="txtNombre" Width="250" Foreground="#F9E8C9" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#313e4f" Style="{StaticResource MahApps.Styles.TextBox}"  Text="{Binding persona.Nombre, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" FontSize="20"/>
+        
+        <!--Campo para modificar el primer apellido del usuario-->
+        <TextBlock Text="Primer Apellido: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+        <TextBox x:Name="txtApellido1" Width="250" Foreground="#F9E8C9" Background="#313e4f" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding persona.Apellido1, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
+
+        <!--Campo para modificar el segundo apellido del usuario-->
+        <TextBlock Text="Segundo Apellido: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+        <TextBox x:Name="txtApellido2" Width="250" Foreground="#F9E8C9" Background="#313e4f"  Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding persona.Apellido2, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
+        
+
+        <!--Campo para modificar el DNI del usuario-->
+
+        <TextBlock Text="DNI: " Foreground="#F9E8C9" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3"/>
+        <TextBox x:Name="txtDni" Width="250" Foreground="#F9E8C9" Background="#313e4f" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding persona.Dni, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+        
+
+        <!--Boton para modificar la contraseña-->
+        <Button x:Name="btnModificarContra" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnModificarContra_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Column="1" Grid.Row="4"  Height="51" Width="172" mat:ButtonAssist.CornerRadius="15" Content="Modificar Contraseña" Foreground="#F9E8C9" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+        <!--Boton para volver a la ventana anterior-->
+        <Button x:Name="btnAtras" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnAtras_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="4"  Height="51" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Atrás" Foreground="#F9E8C9">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+        <!--Boton para guardar toda la informacion modificada-->
+        <Button x:Name="btnGuardar" HorizontalAlignment="Center" Click="btnGuardar_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="5"  Height="50" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Guardar" Foreground="#F9E8C9" VerticalAlignment="Top" Margin="0 15 0 0" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+
+    </Grid>
+</mah:MetroWindow>

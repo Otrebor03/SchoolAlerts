@@ -1,0 +1,106 @@
+﻿<mah:MetroWindow x:Class="ProyectoRRC.Frontend.Dialogos.InsertarActualizar.DialogoAnyadirAlumno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ProyectoRRC.Frontend.Dialogos.InsertarActualizar"
+        mc:Ignorable="d"
+        Title="SchoolAlerts" Height="354" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <!--Color barra titulo-->
+    <mah:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="#222c2a"/>
+    </mah:MetroWindow.WindowTitleBrush>
+
+    <!-- Icono en la barra de título -->
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Source="../../../Recursos/Iconos/gorro.png"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <!--Parte central-->
+    <Grid Background="#262e34">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Imagen del usuario-->
+        <Image Source="../../../Recursos/Iconos/fotoPersona.png" Grid.RowSpan="3" Width="150" Height="150" Margin="0 30 0 0"/>
+
+        <!--Campo para introducir el nombre del alumno-->
+        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Text="Nombre: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="txtNombre" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding alumno.Nombre, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Background="#313e4f" Width="160" Margin="35 0 0 0"/>
+        </StackPanel>
+
+        <!--Campo para introducir el nombre del NIA-->
+        <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock Text="NIA: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="txtNia" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding alumno.Nia, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Background="#313e4f" Width="165" Margin="25 0 0 0"/>
+        </StackPanel>
+
+        <!--Campo para introducir el grupo del alumno-->
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
+            <TextBlock Text="Grupo: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <ComboBox x:Name="cmbGrupo" Width="175" ItemsSource="{Binding listaGrupos}" DisplayMemberPath="NombreGrupo" SelectedItem="{Binding alumno.IdGrupoNavigation, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <!--Campo para introducir los apellidos del alumno-->
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Primer Apellido: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="txtApellido1" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding alumno.Apellido1, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Background="#313e4f" Width="160"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">
+            <TextBlock Text="Segundo Apellido: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="txtApellido2" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding alumno.Apellido2}" Background="#313e4f" Width="147"/>
+        </StackPanel>
+        
+
+        <!--Campo para introducir el telefono del alumno-->
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Telefono: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="txtTelefono" Style="{StaticResource MahApps.Styles.TextBox}" Text="{Binding alumno.Telefono, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Background="#313e4f" Width="165"/>
+        </StackPanel>
+
+        <!--Campo para introducir el padre del alumno-->
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center">
+            <TextBlock Text="Padre: " Foreground="#F9E8C9" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <ComboBox x:Name="cmbPadre" Width="180" ItemsSource="{Binding listaPadres}" DisplayMemberPath="" SelectedItem="{Binding alumno.IdPadreNavigation, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <!--Boton para crear un grupo-->
+        <Button x:Name="btnCrearGrupo" HorizontalAlignment="Center"  Click="btnCrearGrupo_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="3" Grid.Column="2" Height="37" Width="119" mat:ButtonAssist.CornerRadius="15" Content="Crear Grupo" Foreground="#F9E8C9" VerticalAlignment="Center" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+        <!--Boton para cancelar-->
+        <Button x:Name="btnCancelar" Margin="0 0 0 15" HorizontalAlignment="Center"  Click="btnCancelar_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="4" Grid.Column="1" Height="50" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Cancelar" Foreground="#F9E8C9" VerticalAlignment="Bottom" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+        <!--Boton para guardar-->
+        <Button x:Name="btnGuardar" Margin="0 0 0 15" HorizontalAlignment="Center"  Click="btnGuardar_Click" Background="#313e4f" BorderBrush="Transparent" Grid.Row="4" Grid.Column="2" Height="50" Width="103" mat:ButtonAssist.CornerRadius="15" Content="Guardar" Foreground="#F9E8C9" VerticalAlignment="Bottom" >
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="5" Direction="315" Color="#3e3f3f" Opacity="0.5"/>
+            </Button.Effect>
+        </Button>
+
+    </Grid>
+</mah:MetroWindow>
