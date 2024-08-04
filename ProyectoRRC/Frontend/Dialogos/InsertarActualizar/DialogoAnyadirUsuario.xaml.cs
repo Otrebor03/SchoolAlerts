@@ -88,8 +88,8 @@ namespace ProyectoRRC.Frontend.Dialogos
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
 
-            
-            mvPersona.persona.Contrasenya = mvPersona.persona.Nombre;
+            String contrasenya = personaServ.GenerarContrasenya();
+            mvPersona.persona.Contrasenya = personaServ.Encriptar(contrasenya); 
 
             if (mvPersona.persona.IdRolNavigation.NombreRol.Equals("Tutor") && cmbGrupo.SelectedItem == null)
             {
@@ -120,7 +120,7 @@ namespace ProyectoRRC.Frontend.Dialogos
 
                     }
 
-                    MessageBox.Show("El usuario se ha creado con exito", "Usuario Creado", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("El usuario se ha creado con exito, contraseña: "+contrasenya, "Usuario Creado", MessageBoxButton.OK, MessageBoxImage.Information);
                     DialogResult = true;
                     mvPersona.listaPersonas.EditItem(mvPersona);
                     mvPersona.listaPersonas.CommitEdit();

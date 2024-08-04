@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using ProyectoRRC.Backend.Modelo;
+using ProyectoRRC.Backend.Servicios;
 using ProyectoRRC.Frontend.MVVM;
 using System.Windows;
 
@@ -20,6 +21,8 @@ namespace ProyectoRRC.Frontend.Dialogos.InsertarActualizar
         /// </summary>
         private MVPersona mvPersona;
 
+        private PersonaServicio personaServ;
+
         /// <summary>
         /// Constructor 
         /// </summary>
@@ -31,6 +34,7 @@ namespace ProyectoRRC.Frontend.Dialogos.InsertarActualizar
             this.contexto = con;
             mvPersona = new MVPersona(contexto);
             mvPersona.persona = per;
+            personaServ = new PersonaServicio(contexto);
         }
 
         /// <summary>
@@ -46,7 +50,7 @@ namespace ProyectoRRC.Frontend.Dialogos.InsertarActualizar
             }
             else
             {
-                mvPersona.persona.Contrasenya = txtPasswordNueva.Password;
+                mvPersona.persona.Contrasenya = personaServ.Encriptar(txtPasswordNueva.Password);
 
                 mvPersona.update(mvPersona.persona);
 

@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using ProyectoRRC.Backend.Modelo;
+using ProyectoRRC.Backend.Servicios;
 using ProyectoRRC.Frontend.MVVM;
 using System.Windows;
 
@@ -15,12 +16,12 @@ namespace ProyectoRRC.Frontend.Dialogos
         /// </value>
         private IncidenciaspartesrrcContext contexto;
 
-       
-
         /// <value>
         /// Variable con el modelo vista
         /// </value>
         private MVPersona mvPersona;
+
+        private PersonaServicio personaServ;
 
         /// <summary>
         /// Constructo de la clase
@@ -31,7 +32,7 @@ namespace ProyectoRRC.Frontend.Dialogos
         {
             InitializeComponent();
             this.contexto = con;
-            
+            personaServ = new PersonaServicio(contexto);
             mvPersona = new MVPersona(contexto);
             mvPersona.persona = per;
         }
@@ -59,7 +60,7 @@ namespace ProyectoRRC.Frontend.Dialogos
                 MessageBox.Show("El campo de contraseña anterior esta incompleto", "Campo Anterior Contraseña Vacio", MessageBoxButton.OK, MessageBoxImage.Error);
                 
             }
-            else if (!txtPasswordAnterior.Password.Equals(mvPersona.persona.Contrasenya))
+            else if (!txtPasswordAnterior.Password.Equals(personaServ.Desencriptar(mvPersona.persona.Contrasenya)))
             {
                 MessageBox.Show("La contraseña no coincide con la anterior", "Contraseña Anterior Incorrecta", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -71,7 +72,8 @@ namespace ProyectoRRC.Frontend.Dialogos
                 }
                 else
                 {
-                    mvPersona.persona.Contrasenya = txtPasswordNueva.Password;
+                    
+                    mvPersona.persona.Contrasenya = personaServ.Encriptar(txtPasswordNueva.Password);
 
                     mvPersona.update(mvPersona.persona);
 

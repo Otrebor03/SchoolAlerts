@@ -2,6 +2,7 @@
 using ProyectoRRC.Backend.Modelo;
 using ProyectoRRC.Backend.Servicios;
 using ProyectoRRC.Frontend.Dialogos.Admin;
+using ProyectoRRC.Frontend.MVVM;
 using System.Windows;
 
 namespace ProyectoRRC.Frontend.Dialogos
@@ -16,6 +17,7 @@ namespace ProyectoRRC.Frontend.Dialogos
         /// </summary>
         private IncidenciaspartesrrcContext contexto;
 
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -24,6 +26,7 @@ namespace ProyectoRRC.Frontend.Dialogos
             
             InitializeComponent();
             contexto = new IncidenciaspartesrrcContext();
+            
         }
 
         /// <summary>
