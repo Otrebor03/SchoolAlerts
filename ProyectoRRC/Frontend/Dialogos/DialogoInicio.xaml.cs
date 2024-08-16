@@ -410,7 +410,7 @@ namespace ProyectoRRC.Frontend.Dialogos.Admin
         }
 
        private void btnImport_Click(object sender, RoutedEventArgs e)
-{
+{a
     OpenFileDialog openFileDialog = new OpenFileDialog();
 
     openFileDialog.Filter = "Archivos XML (*.xml)|*.xml";
