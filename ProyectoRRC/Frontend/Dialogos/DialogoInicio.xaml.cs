@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace ProyectoRRC.Frontend.Dialogos.Admin
@@ -410,54 +411,50 @@ namespace ProyectoRRC.Frontend.Dialogos.Admin
         }
 
        private void btnImport_Click(object sender, RoutedEventArgs e)
-{a
-    OpenFileDialog openFileDialog = new OpenFileDialog();
+       {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
-    openFileDialog.Filter = "Archivos XML (*.xml)|*.xml";
+            openFileDialog.Filter = "Archivos XML (*.xml)|*.xml";
 
-    if (openFileDialog.ShowDialog() == true)
-    {
-        // Obtener la ruta del archivo seleccionado
-        string filePath = openFileDialog.FileName;
-
-        try
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            xmlDoc.Load(filePath);
-
-            XmlNodeList nodeAmonestaciones = xmlDoc.SelectNodes("/incidenciaspartesrrc/amonestacion/amonestacion");
-            
-            foreach(XmlNode amonestacionNode in nodeAmonestaciones)
+            if (openFileDialog.ShowDialog() == true)
             {
-                Amonestacione amonestacione = new Amonestacione
+                // Obtener la ruta del archivo seleccionado
+                string filePath = openFileDialog.FileName;
+
+                try
                 {
-                    Descripcion = amonestacionNode.SelectSingleNode("descripcion").InnerText,
-                    Sancion = amonestacionNode.SelectSingleNode("sancion").InnerText,
-                    Tipo = amonestacionNode.SelectSingleNode("tipo").InnerText,
-                    IdMotivo = int.Parse(amonestacionNode.SelectSingleNode("idMotivo").InnerText),
-                    FechaHoraHecho = DateTime.Parse(amonestacionNode.SelectSingleNode("fechaHoraHecho").InnerText),
-                    FechaHoraRegistro = DateTime.Parse(amonestacionNode.SelectSingleNode("fechaHoraRegistro").InnerText),
-                    IdAlumno = int.Parse(amonestacionNode.SelectSingleNode("idAlumno").InnerText),
-                    IdProfesorRegistra = int.Parse(amonestacionNode.SelectSingleNode("idProfesorRegistra").InnerText),
-                    IdProfesorHecho = int.Parse(amonestacionNode.SelectSingleNode("idProfesorHecho").InnerText)
-                };
+                    XmlDocument xmlDoc = new XmlDocument();
 
+                    xmlDoc.Load(filePath);
 
+                    XmlNodeList nodeAmonestaciones = xmlDoc.SelectNodes("/incidenciaspartesrrc/amonestacion/amonestacion");
+            
+                    foreach(XmlNode amonestacionNode in nodeAmonestaciones)
+                    {
+                        Amonestacione amonestacione = new Amonestacione
+                        {
+                            Descripcion = amonestacionNode.SelectSingleNode("descripcion").InnerText,
+                            Sancion = amonestacionNode.SelectSingleNode("sancion").InnerText,
+                            Tipo = amonestacionNode.SelectSingleNode("tipo").InnerText,
+                            IdMotivo = int.Parse(amonestacionNode.SelectSingleNode("idMotivo").InnerText),
+                            FechaHoraHecho = DateTime.Parse(amonestacionNode.SelectSingleNode("fechaHoraHecho").InnerText),
+                            FechaHoraRegistro = DateTime.Parse(amonestacionNode.SelectSingleNode("fechaHoraRegistro").InnerText),
+                            IdAlumno = int.Parse(amonestacionNode.SelectSingleNode("idAlumno").InnerText),
+                            IdProfesorRegistra = int.Parse(amonestacionNode.SelectSingleNode("idProfesorRegistra").InnerText),
+                            IdProfesorHecho = int.Parse(amonestacionNode.SelectSingleNode("idProfesorHecho").InnerText)
+                        };
 
-
-                
-            }
+                    }
             
 
-        }
-        catch (Exception ex)
-        {
-            // Manejar errores de lectura
-            MessageBox.Show("Error al leer el archivo: " + ex.Message);
-        }
-    }
-}
+                }
+                catch (Exception ex)
+                {
+                    // Manejar errores de lectura
+                    MessageBox.Show("Error al leer el archivo: " + ex.Message);
+                }
+            }
+       }
 
        
 
