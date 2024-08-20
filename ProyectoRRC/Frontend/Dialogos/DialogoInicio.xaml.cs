@@ -4,12 +4,14 @@ using ProyectoRRC.Backend.Modelo;
 using ProyectoRRC.Backend.Servicios;
 using ProyectoRRC.Frontend.MVVM;
 using ProyectoRRC.Frontend.UC;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProyectoRRC.Frontend.Dialogos.Admin
 {
@@ -42,6 +44,10 @@ namespace ProyectoRRC.Frontend.Dialogos.Admin
 
         private MVIncidencias mvAmonestacion;
 
+        private MVAlumno mvAlumno;
+
+        private MVProfesor mvProfesor;
+
         /// <summary>
         /// Constructor de la clase, da acceso a unas funcionaldades u otras al usuario dependiendo del rol que este tenga y modifica el dialogo para mostrarlo de la forma deseada
         /// </summary>
@@ -52,6 +58,9 @@ namespace ProyectoRRC.Frontend.Dialogos.Admin
             InitializeComponent();
             this.contexto = cont;
             mvPersona = new MVPersona(contexto);
+            mvAmonestacion = new MVIncidencias(contexto);
+            mvAlumno = new MVAlumno(contexto);
+            mvProfesor = new MVProfesor(contexto);
             this.DataContext = mvPersona;
             mvPersona.persona = pers;
             inicializa();
@@ -444,9 +453,57 @@ namespace ProyectoRRC.Frontend.Dialogos.Admin
                             IdProfesorHecho = int.Parse(amonestacionNode.SelectSingleNode("idProfesorHecho").InnerText)
                         };
 
-                    }
-            
+                        mvAmonestacion.update(amonestacione);
 
+                    }
+
+                    XmlNodeList nodeAlumnos = xmlDoc.SelectNodes("/incidenciaspartesrrc/alumno/alumno");
+
+                    foreach(XmlNode alumnoNode in nodeAlumnos)
+                    {
+                        Alumno alumno = new Alumno
+                        {
+                            Nia = alumnoNode.SelectSingleNode("nia").InnerText,
+                            Nombre = alumnoNode.SelectSingleNode("nombre").InnerText,
+                            Apellido1 = alumnoNode.SelectSingleNode("apellido1").InnerText,
+                            Apellido2 = alumnoNode.SelectSingleNode("apellido2").InnerText,
+                            Telefono = alumnoNode.SelectSingleNode("telefono").InnerText,
+                            IdGrupo = int.Parse(alumnoNode.SelectSingleNode("idGrupo").InnerText),
+                            //Foto = byte.Parse(alumnoNode.SelectSingleNode("foto").InnerText)
+                            IdPadre = int.Parse(alumnoNode.SelectSingleNode("idPadre").InnerText)
+                        };
+
+                        mvAlumno.update(alumno);
+                        
+                    }
+
+                    XmlNodeList nodePersona = xmlDoc.SelectNodes("/incidenciaspartesrrc/persona/persona");
+
+                    foreach ( XmlNode personaNode in nodePersona)
+                    {
+                        Persona persona = new Persona
+                        {
+                            IdRol = int.Parse(personaNode.SelectSingleNode("idRol").InnerText),
+                            Dni = personaNode.SelectSingleNode("dni").InnerText,
+                            Nombre = personaNode.SelectSingleNode("nombre").InnerText,
+                            Apellido1 = personaNode.SelectSingleNode("apellido1").InnerText,
+                            Apellido2 = personaNode.SelectSingleNode("apellido2").InnerText,
+                            Contrasenya = personaNode.SelectSingleNode("contrasenya").InnerText,
+                        };
+
+                        mvPersona.update(persona);
+                    }
+
+                    XmlNodeList nodeProfesor = xmlDoc.SelectNodes("/incidenciaspartesrrc/profesor/profesor");
+
+                    foreach(XmlNode profesorNode in nodeProfesor)
+                    {
+                        Profesor profesor = new Profesor {
+                            IdPersona = int.Parse(profesorNode.SelectSingleNode("idPersona").InnerText)
+                        };
+
+                        mvProfesor.update(profesor);
+                    }
                 }
                 catch (Exception ex)
                 {
